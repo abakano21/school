@@ -1,0 +1,81 @@
+<div>
+  <div *ngIf="currentMyClass.id" class="edit-form">
+    <h4>Class</h4>
+    <form>
+      <div class="form-group">
+        <label for="name">Name</label>
+        <input
+          type="text"
+          class="form-control"
+          id="name"
+          [(ngModel)]="currentMyClass.name"
+          name="name"
+        />
+      </div>
+      <div class="form-group">
+        <label for="code">Code</label>
+        <input
+          type="text"
+          class="form-control"
+          id="code"
+          [(ngModel)]="currentMyClass.code"
+          name="code"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="maximum_students">Maximum Students</label>
+        <input
+          type="number"
+          max="10"
+          class="form-control"
+          id="maximum_students"
+          [(ngModel)]="currentMyClass.maximum_students"
+          name="maximum_students"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="status">Status</label>
+        <select
+          required
+          [(ngModel)]="currentMyClass.status"
+          class="form-control"
+          name="status"
+        >
+          <option disabled>Select Status</option>
+          <option ng-if="'opened' == currentMyClass.status; selected" value="opened">Opened</option>
+          <option ng-if="'closed' == currentMyClass.status; selected" value="closed">Closed</option>
+        </select>
+      </div>
+    </form>
+
+    <h5>Students of this Class</h5>
+    <ul class="list-group">
+      <li
+        class="list-group-item"
+        *ngFor="let row of currentMyClass.students;"
+      >
+      {{ row['first_name'] }}
+      </li>
+    </ul>
+
+    <button class="badge badge-danger mr-2" (click)="deleteMyClass()">
+      Delete
+    </button>
+
+    <button
+      type="submit"
+      class="badge badge-success mb-2"
+      (click)="updateMyClass()"
+    >
+      Update
+    </button>
+    <p>{{ message }}</p>
+  </div>
+
+  <div *ngIf="!currentMyClass.id">
+    <br />
+    <p>Cannot access this Student...</p>
+  </div>
+</div>
